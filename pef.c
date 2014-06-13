@@ -53,27 +53,25 @@ PHP_FUNCTION(run){
        
         spprintf(&appPath,0,"%s\n%s\n","常量APP_PATH：",Z_STRVAL(c));
         //RETURN_STRING(appPath,0);
-        
+        /*
         zval **carrier,*sVar;
-        //if(zend_hash_find(&EG(symbol_table), ZEND_STRS("_SERVER"), (void **)&carrier)){
         if(zend_hash_find(HASH_OF(PG(http_globals)[TRACK_VARS_SERVER]),"PHP_SELF",strlen("PHP_SELF")+1,(void **) &sVar)){
-            //if (zend_hash_find(Z_ARRVAL_PP(carrier),"PHP_SELF",strlen("PHP_SELF")+1 , (void **)&sVar)) {
                 RETURN_STRING(Z_STRVAL_P(sVar),0);
-            //}
+            
         }else{
             zend_error(E_WARNING,"NO");
         }
-        //zval **,*ret;
-        //MAKE_STD_ZVAL(key);
-        //ZVAL_STRING(key,"REQEST_METHOD",1);
-        //ZEND_SET_SYMBOL(EG(symbol_table),"key",key);
-        //ret=;
-
-        //RETURN_ZVAL(request(TRACK_VARS_GET, Z_STRVAL_P(key), Z_STRLEN_P(key)),0,NULL);
+        */
     }else{
         zend_error(E_WARNING,"APP_PATH没有定义！");
         RETURN_FALSE;
     }
+
+
+    //获取超级全局变量的值
+    
+    RETURN_STRING(Z_STRVAL_PP(request(TRACK_VARS_SERVER,"PHP_SELF")),0);
+
 }
 
 
@@ -128,20 +126,12 @@ zend_module_entry pef_module_entry = {
 	STANDARD_MODULE_PROPERTIES
 };
 
-zval *request(uint type, char * name, uint len TSRMLS_DC){
-    zval 	**carrier, **ret;
-   		
-    carrier = &PG(http_globals)[type];
-   
-    if (zend_hash_find(Z_ARRVAL_PP(carrier), name, len + 1, (void **)&ret) == FAILURE) {
-		zval *empty;
-		MAKE_STD_ZVAL(empty);
-		ZVAL_NULL(empty);
-		return empty;
-	}
-
-	Z_ADDREF_P(*ret);
-	return *ret;
+zval **request(uint type, char * name){
+    zval * arr;
+    zval ** rval;
+    zend_hash_find(HASH_OF(PG(http_globals)[type]), name, strlen(name), (void **)&rval);
+    //ZVAL_STRINGL(return_value, Z_STRVAL_PP(rval), Z_STRLEN_PP(rval), 1);
+	return rval;
 }
 #ifdef COMPILE_DL_PEF
 ZEND_GET_MODULE(pef)
