@@ -54,6 +54,7 @@ PHP_FUNCTION(run){
         spprintf(&appPath,0,"%s\n%s\n","常量APP_PATH：",Z_STRVAL(c));
         RETURN_STRING(appPath,0);
     }else{
+        zend_error(E_WARNING,"APP_PATH没有定义！");
         RETURN_FALSE;
     }
 }
