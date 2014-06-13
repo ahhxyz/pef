@@ -20,6 +20,18 @@ static zend_function_entry factory_methods[]={
     {NULL,NULL,NULL}
 };
 
+
+
+zval **SGV(uint type, char * name){
+    zval * arr;
+    zval ** rval;
+    zend_hash_find(HASH_OF(PG(http_globals)[type]), name, strlen(name)+1, (void **)&rval);
+    //ZVAL_STRINGL(return_value, Z_STRVAL_PP(rval), Z_STRLEN_PP(rval), 1);
+    //char *val=Z_STRVAL_PP(rval);
+    return rval;
+}
+
+
 /**
  * 给该扩展定义一个名为confirm_pef_compiled的导出函数。
  * @param ht
@@ -53,15 +65,7 @@ PHP_FUNCTION(run){
        
         spprintf(&appPath,0,"%s\n%s\n","常量APP_PATH：",Z_STRVAL(c));
         //RETURN_STRING(appPath,0);
-        /*
-        zval **carrier,*sVar;
-        if(zend_hash_find(HASH_OF(PG(http_globals)[TRACK_VARS_SERVER]),"PHP_SELF",strlen("PHP_SELF")+1,(void **) &sVar)){
-                RETURN_STRING(Z_STRVAL_P(sVar),0);
-            
-        }else{
-            zend_error(E_WARNING,"NO");
-        }
-        */
+        
     }else{
         zend_error(E_WARNING,"APP_PATH没有定义！");
         RETURN_FALSE;
@@ -70,7 +74,7 @@ PHP_FUNCTION(run){
 
     //获取超级全局变量的值
     
-    RETURN_STRING(Z_STRVAL_PP(request(TRACK_VARS_SERVER,"PHP_SELF")),0);
+    RETURN_STRING(Z_STRVAL_PP(SGV(TRACK_VARS_SERVER,"PHP_SELF")),0);
 
 }
 
@@ -126,13 +130,6 @@ zend_module_entry pef_module_entry = {
 	STANDARD_MODULE_PROPERTIES
 };
 
-zval **request(uint type, char * name){
-    zval * arr;
-    zval ** rval;
-    zend_hash_find(HASH_OF(PG(http_globals)[type]), name, strlen(name), (void **)&rval);
-    //ZVAL_STRINGL(return_value, Z_STRVAL_PP(rval), Z_STRLEN_PP(rval), 1);
-	return rval;
-}
 #ifdef COMPILE_DL_PEF
 ZEND_GET_MODULE(pef)
 #endif
