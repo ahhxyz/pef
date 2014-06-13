@@ -54,15 +54,22 @@ PHP_FUNCTION(run){
         spprintf(&appPath,0,"%s\n%s\n","常量APP_PATH：",Z_STRVAL(c));
         //RETURN_STRING(appPath,0);
         
-        void *retval=NULL;
-        zend_hash_find(HASH_OF(PG(http_globals)[TRACK_VARS_SERVER]),"REQUEST_METHOD",strlen("REQEST_METHOD"),&retval);
-        zval *key,*ret;
-        MAKE_STD_ZVAL(key);
-        ZVAL_STRING(key,"REQEST_METHOD",1);
+        zval **carrier,*sVar;
+        //if(zend_hash_find(&EG(symbol_table), ZEND_STRS("_SERVER"), (void **)&carrier)){
+        if(zend_hash_find(HASH_OF(PG(http_globals)[TRACK_VARS_SERVER]),"PHP_SELF",strlen("PHP_SELF")+1,(void **) &sVar)){
+            //if (zend_hash_find(Z_ARRVAL_PP(carrier),"PHP_SELF",strlen("PHP_SELF")+1 , (void **)&sVar)) {
+                RETURN_STRING(Z_STRVAL_P(sVar),0);
+            //}
+        }else{
+            zend_error(E_WARNING,"NO");
+        }
+        //zval **,*ret;
+        //MAKE_STD_ZVAL(key);
+        //ZVAL_STRING(key,"REQEST_METHOD",1);
         //ZEND_SET_SYMBOL(EG(symbol_table),"key",key);
-        ret=request(TRACK_VARS_SERVER, Z_STRVAL_P(key), Z_STRLEN_P(key) TSRMLS_CC);
+        //ret=;
 
-        RETURN_ZVAL(ret,0,NULL);
+        //RETURN_ZVAL(request(TRACK_VARS_GET, Z_STRVAL_P(key), Z_STRLEN_P(key)),0,NULL);
     }else{
         zend_error(E_WARNING,"APP_PATH没有定义！");
         RETURN_FALSE;
@@ -123,13 +130,9 @@ zend_module_entry pef_module_entry = {
 
 zval *request(uint type, char * name, uint len TSRMLS_DC){
     zval 	**carrier, **ret;
-    switch(type){
-        case TRACK_VARS_SERVER:
-			
-            carrier = &PG(http_globals)[type];
-            break;
-    }
-    
+   		
+    carrier = &PG(http_globals)[type];
+   
     if (zend_hash_find(Z_ARRVAL_PP(carrier), name, len + 1, (void **)&ret) == FAILURE) {
 		zval *empty;
 		MAKE_STD_ZVAL(empty);
