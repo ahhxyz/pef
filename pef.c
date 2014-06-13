@@ -41,6 +41,24 @@ PHP_FUNCTION(confirm_pef_compiled)
 	len = spprintf(&strg, 0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now compiled into PHP.", "pef", arg);
 	RETURN_STRINGL(strg, len, 0);
 }
+
+PHP_FUNCTION(run){
+    char *appPath;
+    zval c;
+    
+    //zend_get_executed_filename(TSRMLS_CC)
+    
+    //获取内核中及PHP中定义的常量
+    if(zend_get_constant("APP_PATH",sizeof("APP_PATH")-1,&c TSRMLS_CC)){
+       
+        spprintf(&appPath,0,"%s\n%s\n","常量APP_PATH：",Z_STRVAL(c));
+        RETURN_STRING(appPath,0);
+    }else{
+        RETURN_FALSE;
+    }
+}
+
+
 PHP_MINIT_FUNCTION(pef)
 {
     //如果没有这句，PHP中实例化config类时就会提示：class not found
@@ -76,7 +94,8 @@ PHP_MINFO_FUNCTION(pef)
 //扩展的函数列表，并将其引入到PHP内部。
 const zend_function_entry pef_functions[] = {
 	PHP_FE(confirm_pef_compiled,	NULL)		/* For testing, remove later. */
-	PHP_FE_END	/* Must be the last line in pef_functions[] */
+	PHP_FE(run,NULL)
+        PHP_FE_END	/* Must be the last line in pef_functions[] */
 };
 zend_module_entry pef_module_entry = {
 	STANDARD_MODULE_HEADER,
