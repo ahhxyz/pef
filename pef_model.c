@@ -64,5 +64,6 @@ PHP_MINIT_FUNCTION(pef_model)
     zend_declare_property_null(pef_model_ce,"_db",strlen("_db"),ZEND_ACC_PROTECTED|ZEND_ACC_STATIC);
     
     
+    
     return SUCCESS;
 }

@@ -22,7 +22,7 @@ static zend_function_entry factory_methods[]={
 
 
 
-zval **SGV(uint type, char * name){
+zval **_TRACK_VARS(uint type, char * name){
     zval * arr;
     zval ** rval;
     zend_hash_find(HASH_OF(PG(http_globals)[type]), name, strlen(name)+1, (void **)&rval);
@@ -74,7 +74,7 @@ PHP_FUNCTION(run){
 
     //获取超级全局变量的值
     
-    RETURN_STRING(Z_STRVAL_PP(SGV(TRACK_VARS_SERVER,"PHP_SELF")),0);
+    RETURN_STRING(Z_STRVAL_PP(_TRACK_VARS(TRACK_VARS_SERVER,"PHP_SELF")),0);
 
 }
 

@@ -14,6 +14,7 @@ ZEND_METHOD(__construct){
 
 
 
+
 ZEND_METHOD(getInstance){
     php_printf("获取单例");
 }
