@@ -8,5 +8,9 @@ if test "$PHP_PEF" != "no"; then
   
   PHP_NEW_EXTENSION(pef, 
     pef.c \
-    pef_config.c, $ext_shared)
+    pef_config.c \
+    pef_db.c \
+    pef_model.c \
+    pef_view.c \
+    pef_controller.c, $ext_shared)
 fi
