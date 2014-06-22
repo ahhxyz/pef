@@ -9,20 +9,8 @@
 
 static int le_pef;
 
-//定义cfg类
-//zend_class_entry *cfg_ce;
-//定义factory类
-zend_class_entry *factory_ce;
 
-
-//factory类的方法
-static zend_function_entry factory_methods[]={
-    {NULL,NULL,NULL}
-};
-
-
-
-zval **_TRACK_VARS(uint type, char * name){
+zval **GET_TRACK_VARS(uint type, char * name){
     zval * arr;
     zval ** rval;
     zend_hash_find(HASH_OF(PG(http_globals)[type]), name, strlen(name)+1, (void **)&rval);
@@ -74,7 +62,7 @@ PHP_FUNCTION(run){
 
     //获取超级全局变量的值
     
-    RETURN_STRING(Z_STRVAL_PP(_TRACK_VARS(TRACK_VARS_SERVER,"PHP_SELF")),0);
+    RETURN_STRING(Z_STRVAL_PP(GET_TRACK_VARS(TRACK_VARS_SERVER,"PHP_SELF")),0);
 
 }
 
