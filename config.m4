@@ -1,7 +1,4 @@
-
-
  PHP_ARG_ENABLE(pef, whether to enable pef support,
-
  [  --enable-pef           Enable pef support])
 
 if test "$PHP_PEF" != "no"; then
