@@ -83,6 +83,10 @@ PHP_MINIT_FUNCTION(pef)
 {
     //如果没有这句，PHP中实例化config类时就会提示：class not found
     ZEND_MODULE_STARTUP_N(pef_config) (INIT_FUNC_ARGS_PASSTHRU);
+    ZEND_MODULE_STARTUP_N(pef_db) (INIT_FUNC_ARGS_PASSTHRU);
+    ZEND_MODULE_STARTUP_N(pef_model) (INIT_FUNC_ARGS_PASSTHRU);
+    ZEND_MODULE_STARTUP_N(pef_controller) (INIT_FUNC_ARGS_PASSTHRU);
+    ZEND_MODULE_STARTUP_N(pef_view) (INIT_FUNC_ARGS_PASSTHRU);
     /* startup components */
     //PEF_STARTUP(cfg);
     

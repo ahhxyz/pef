@@ -28,8 +28,8 @@ ZEND_METHOD(pef_controller,render){
 }
 
 static zend_function_entry pef_controller_methods[]={
-    ZEND_ME(pef_controller,__construct,NULL,ZEND_ACC_PROTECTED)
-    ZEND_ME(pef_controller,assign,NULL,ZEND_ACC_PROTECTED)
+    ZEND_ME(pef_controller,__construct,NULL,ZEND_ACC_PUBLIC)
+    ZEND_ME(pef_controller,assign,NULL,ZEND_ACC_PUBLIC)
     ZEND_ME(pef_controller,display,NULL,ZEND_ACC_PROTECTED)
     ZEND_ME(pef_controller,render,NULL,ZEND_ACC_PROTECTED)
     {NULL,NULL,NULL}
