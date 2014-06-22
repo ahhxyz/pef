@@ -8,33 +8,33 @@
 zend_class_entry *pef_model_ce;
 
 
-ZEND_METHOD(__construct){
+ZEND_METHOD(pef_model,__construct){
 
     php_printf("model类的构造函数");
 }
 
 
 
-ZEND_METHOD(getColumns){
+ZEND_METHOD(pef_model,getColumns){
     php_printf("获取模型对应数据表的所有字段名称");
 }
 
 
-ZEND_METHOD(select){
+ZEND_METHOD(pef_model,select){
     php_printf("查");
 }
 
-ZEND_METHOD(insert){
+ZEND_METHOD(pef_model,insert){
     php_printf("增");
 }
 
 
-ZEND_METHOD(update){
+ZEND_METHOD(pef_model,update){
     php_printf("改");
 }
 
 
-ZEND_METHOD(delete){
+ZEND_METHOD(pef_model,delete){
     php_printf("删");
 }
 

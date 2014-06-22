@@ -8,32 +8,32 @@
 zend_class_entry *pef_db_ce;
 
 
-ZEND_METHOD(__construct){
+ZEND_METHOD(pef_db,__construct){
     php_printf("db类的构造函数");
 }
 
 
 
 
-ZEND_METHOD(getInstance){
+ZEND_METHOD(pef_db,getInstance){
     php_printf("获取单例");
 }
 
 
-ZEND_METHOD(select){
+ZEND_METHOD(pef_db,select){
     php_printf("获取数据");
 }
 
 
-ZEND_METHOD(insert){
+ZEND_METHOD(pef_db,insert){
     php_printf("插入");
 }
 
-ZEND_METHOD(update){
+ZEND_METHOD(pef_db,update){
     php_printf("更新");
 }
 
-ZEND_METHOD(delete){
+ZEND_METHOD(pef_db,delete){
     php_printf("删除");
 }
 static zend_function_entry pef_db_methods[]={

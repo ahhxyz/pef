@@ -9,22 +9,22 @@
 zend_class_entry *pef_view_ce;
 
 
-ZEND_METHOD(__construct){
+ZEND_METHOD(pef_view,__construct){
     php_printf("view类的构造函数");
 }
 
 
 
-ZEND_METHOD(parseIf){
+ZEND_METHOD(pef_view,parseIf){
     php_printf("解析if标签");
 }
 
 
-ZEND_METHOD(parseForeach){
+ZEND_METHOD(pef_view,parseForeach){
     php_printf("解析foreach标签");
 }
 
-ZEND_METHOD(parseVar){
+ZEND_METHOD(pef_view,parseVar){
     php_printf("解析变量");
 }
 

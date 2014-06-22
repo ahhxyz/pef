@@ -8,22 +8,22 @@
 zend_class_entry *pef_controller_ce;
 
 
-ZEND_METHOD(__construct){
+ZEND_METHOD(pef_controller,__construct){
     php_printf("controller类的构造函数");
 }
 
 
 
-ZEND_METHOD(assign){
+ZEND_METHOD(pef_controller,assign){
     php_printf("给模板变量赋值");
 }
 
 
-ZEND_METHOD(display){
+ZEND_METHOD(pef_controller,display){
     php_printf("渲染模板，填充数据，然后输出");
 }
 
-ZEND_METHOD(render){
+ZEND_METHOD(pef_controller,render){
     php_printf("渲染模板不直接输出");
 }
 
